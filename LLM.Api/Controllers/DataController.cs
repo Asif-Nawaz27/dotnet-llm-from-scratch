@@ -14,7 +14,7 @@ public sealed class DataController : ControllerBase
         if (file.Length == 0)
             return BadRequest("No file provided.");
 
-        var uploadsDir = Path.Combine("..", "..", "data", "uploads");
+        var uploadsDir = Path.Combine("..", "data", "uploads");
         Directory.CreateDirectory(uploadsDir);
 
         var safeName = Path.GetFileName(file.FileName); // strip any path components from the original name
