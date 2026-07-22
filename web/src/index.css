@@ -1,0 +1,102 @@
+:root {
+  --bg: #0a0e14;
+  --bg-panel: #10151d;
+  --bg-input: #0d1117;
+  --border: #232a35;
+  --border-strong: #313a49;
+  --text: #adbac7;
+  --text-dim: #6e7681;
+  --text-h: #e6edf3;
+  --accent: #5eead4;
+  --accent-bg: rgba(94, 234, 212, 0.1);
+  --accent-border: rgba(94, 234, 212, 0.45);
+  --amber: #f5c451;
+  --green: #3fb950;
+  --red: #f85149;
+  --shadow: rgba(0, 0, 0, 0.45) 0 10px 24px -8px;
+
+  /* The log/output console always looks like a terminal, in either theme. */
+  --term-bg: #05070b;
+  --term-fg: #3fb950;
+
+  --mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f5f6f8;
+  --bg-panel: #ffffff;
+  --bg-input: #eef0f3;
+  --border: #d8dbe0;
+  --border-strong: #c2c7cf;
+  --text: #3b4048;
+  --text-dim: #6b7280;
+  --text-h: #111418;
+  --accent: #0d9488;
+  --accent-bg: rgba(13, 148, 136, 0.1);
+  --accent-border: rgba(13, 148, 136, 0.45);
+  --amber: #b45309;
+  --green: #15803d;
+  --red: #dc2626;
+  --shadow: rgba(0, 0, 0, 0.08) 0 10px 24px -8px;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font: 15px/1.5 var(--mono);
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2 {
+  font-family: var(--mono);
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 22px;
+  letter-spacing: 0.2px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 14px;
+  line-height: 118%;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 14px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg-input);
+  color: var(--text-h);
+}

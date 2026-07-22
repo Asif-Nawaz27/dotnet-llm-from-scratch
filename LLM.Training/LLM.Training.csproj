@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\LLM.Core\LLM.Core.csproj" />
+    <ProjectReference Include="..\LLM.Model\LLM.Model.csproj" />
+    <ProjectReference Include="..\LLM.Tokenizer\LLM.Tokenizer.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\LLM.Core\LLM.Core.csproj" />
+    <ProjectReference Include="..\LLM.Model\LLM.Model.csproj" />
+    <ProjectReference Include="..\LLM.Tokenizer\LLM.Tokenizer.csproj" />
+    <ProjectReference Include="..\LLM.Training\LLM.Training.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/tests/">
+    <Project Path="tests/LLM.Core.Tests/LLM.Core.Tests.csproj" />
+  </Folder>
+  <Project Path="LLM.Api/LLM.Api.csproj" />
+  <Project Path="LLM.Cli/LLM.Cli.csproj" />
+  <Project Path="LLM.Core/LLM.Core.csproj" />
+  <Project Path="LLM.Model/LLM.Model.csproj" />
+  <Project Path="LLM.Tokenizer/LLM.Tokenizer.csproj" />
+  <Project Path="LLM.Training/LLM.Training.csproj" />
+</Solution>

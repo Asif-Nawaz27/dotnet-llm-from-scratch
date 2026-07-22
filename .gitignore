@@ -1,0 +1,7 @@
+bin/
+obj/
+checkpoints/
+data/
+*.user
+.vs/
+.slnx/
