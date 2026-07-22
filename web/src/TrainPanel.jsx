@@ -122,7 +122,7 @@ export default function TrainPanel() {
         </label>
 
         <div className="row">
-          <SliderField label="steps" value={steps} onChange={setSteps} min={20} max={5000} step={20} disabled={busy} />
+          <SliderField label="steps" value={steps} onChange={setSteps} min={5} max={5000} step={5} disabled={busy} />
           <SliderField
             label="eval interval"
             value={evalInterval}

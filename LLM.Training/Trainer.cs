@@ -20,11 +20,14 @@ public static class Trainer
         var parameters = model.Parameters().ToList();
         var optimizer = new AdamOptimizer(parameters, cfg.LearningRate, cfg.Beta1, cfg.Beta2, weightDecay: cfg.WeightDecay);
 
+        log($"Training process started...");
+
         for (int step = 1; step <= cfg.MaxSteps; step++)
         {
             cancellationToken.ThrowIfCancellationRequested();
             optimizer.ZeroGrad();
 
+            log($"training step  {step}/{cfg.MaxSteps}");
             var (inputs, targets) = trainLoader.GetBatch(cfg.BatchSize);
             var (_, loss) = model.ForwardWithLoss(inputs, targets, cfg.BatchSize, model.Config.BlockSize);
             loss.Backward();
@@ -39,7 +42,11 @@ public static class Trainer
 
             if (step % cfg.EvalInterval == 0 || step == cfg.MaxSteps)
             {
+                log($"calculateing estimate loss...");
+
                 float valLoss = EstimateLoss(model, valLoader, cfg.EvalIters, cfg.BatchSize);
+                log($"calculated loss value...");
+
                 log($"step {step,6}/{cfg.MaxSteps}  train_loss={loss.Data[0]:F4}  val_loss={valLoss:F4}");
 
                 if (cfg.CheckpointDir is not null)

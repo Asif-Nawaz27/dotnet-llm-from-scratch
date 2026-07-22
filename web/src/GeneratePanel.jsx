@@ -62,7 +62,7 @@ export default function GeneratePanel() {
         {error && <p className="error">✗ {error}</p>}
       </TerminalWindow>
 
-      <TerminalWindow title="generate.log" status={status} flush>
+      <TerminalWindow title="generate.log" flush>
         <pre className="console-output">
           {result || (loading ? "" : "// output will appear here")}
           {loading && <span className="cursor" />}
