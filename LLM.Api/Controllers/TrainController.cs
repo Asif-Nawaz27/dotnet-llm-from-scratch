@@ -17,7 +17,7 @@ public sealed class TrainController : ControllerBase
     [HttpGet("/train/stream")]
     public async Task StreamAsync(
         [FromQuery] string dataPath,
-        [FromQuery] int steps = 2000,
+        [FromQuery] int steps = 3000,
         [FromQuery] int batchSize = 32,
         [FromQuery] int blockSize = 128,
         [FromQuery] int nEmbd = 128,
@@ -25,8 +25,8 @@ public sealed class TrainController : ControllerBase
         [FromQuery] int nLayer = 4,
         [FromQuery] float dropout = 0.1f,
         [FromQuery] float lr = 3e-4f,
-        [FromQuery] int evalInterval = 20,
-        [FromQuery] int evalIters = 10,
+        [FromQuery] int evalInterval = 100,
+        [FromQuery] int evalIters = 20,
         [FromQuery] int seed = 1337)
     {
         var request = new TrainRequest(dataPath, steps, batchSize, blockSize, nEmbd, nHead, nLayer, dropout, lr, evalInterval, evalIters, seed);

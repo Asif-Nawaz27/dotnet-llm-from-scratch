@@ -30,6 +30,12 @@ public sealed class GenerateController : ControllerBase
             // Model not trained/loaded yet - a client error worth reporting, not a 500.
             return Problem(ex.Message, statusCode: StatusCodes.Status503ServiceUnavailable);
         }
+        catch (ArgumentException ex)
+        {
+            // Prompt contains a character the model never saw during training (CharTokenizer.Encode) -
+            // an expected user-input case, not a server fault.
+            return Problem(ex.Message, statusCode: StatusCodes.Status400BadRequest);
+        }
     }
 }
 

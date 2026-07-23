@@ -10,7 +10,7 @@ namespace LLM.Api;
 /// agree on where the model lives without the client having to keep the two in sync.</summary>
 public sealed record TrainRequest(
     string DataPath,
-    int Steps = 2000,
+    int Steps = 3000,
     int BatchSize = 32,
     int BlockSize = 128,
     int NEmbd = 128,
@@ -18,8 +18,8 @@ public sealed record TrainRequest(
     int NLayer = 4,
     float Dropout = 0.1f,
     float Lr = 3e-4f,
-    int EvalInterval = 20,
-    int EvalIters = 10,
+    int EvalInterval = 100,
+    int EvalIters = 20,
     int Seed = 1337);
 
 /// <summary>

@@ -43,7 +43,7 @@ static void PrintUsage()
         train options:
           --data <path>          Path to a UTF-8 text corpus (required)
           --out <dir>            Checkpoint output directory (required)
-          --steps <n>            Training steps (default 2000)
+          --steps <n>            Training steps (default 3000)
           --batch-size <n>       (default 32)
           --block-size <n>       Context length (default 128)
           --n-embd <n>           Embedding width (default 128)
@@ -93,7 +93,7 @@ static int RunTrain(string[] args)
         return 1;
     }
 
-    int steps = int.Parse(opts.GetValueOrDefault("steps", "2000"));
+    int steps = int.Parse(opts.GetValueOrDefault("steps", "3000"));
     int batchSize = int.Parse(opts.GetValueOrDefault("batch-size", "32"));
     int blockSize = int.Parse(opts.GetValueOrDefault("block-size", "128"));
     int nEmbd = int.Parse(opts.GetValueOrDefault("n-embd", "128"));
