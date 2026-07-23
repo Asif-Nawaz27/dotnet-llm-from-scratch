@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { cancelTraining, streamTraining, uploadDataFile } from "./api";
 import SliderField from "./SliderField";
 import TerminalWindow from "./TerminalWindow";
+import LogLines from "./LogLines";
 
 // Shown as a placeholder only, not a default value - the field is required, so Start
 // stays disabled until the user actually browses for or types a real data file. Paths are
@@ -28,8 +29,8 @@ export default function TrainPanel() {
 
   useEffect(() => () => eventSourceRef.current?.close(), []); // close on unmount
 
-  function appendLine(line) {
-    setLog((prev) => [...prev, line]);
+  function appendLine(text, level = "info") {
+    setLog((prev) => [...prev, { text, level }]);
   }
 
   async function handleFileChosen(e) {
@@ -41,9 +42,9 @@ export default function TrainPanel() {
     try {
       const path = await uploadDataFile(file);
       setDataPath(path);
-      appendLine(`--- uploaded ${file.name} ---`);
+      appendLine(`uploaded ${file.name}`);
     } catch (err) {
-      appendLine(`--- upload error: ${err.message} ---`);
+      appendLine(`upload failed: ${err.message}`, "error");
     } finally {
       setUploading(false);
     }
@@ -56,15 +57,15 @@ export default function TrainPanel() {
     eventSourceRef.current = streamTraining(
       { dataPath, steps, evalInterval },
       {
-        onLogLine: appendLine,
+        onLogLine: (line) => appendLine(line),
         onProgress: (current, total) => setProgress((current / total) * 100),
         onDone: () => {
           setProgress(100);
-          appendLine("--- training finished ---");
+          appendLine("training finished");
           setStatus("done");
         },
         onError: (message) => {
-          appendLine(`--- error: ${message} ---`);
+          appendLine(message, "error");
           setStatus("error");
         },
       }
@@ -78,7 +79,7 @@ export default function TrainPanel() {
     } finally {
       eventSourceRef.current?.close();
       setStatus("idle");
-      appendLine("--- stopped ---");
+      appendLine("stopped", "warn");
     }
   }
 
@@ -145,11 +146,12 @@ export default function TrainPanel() {
       </TerminalWindow>
 
       <TerminalWindow title="train.log" status={status} progress={progress} flush>
-        <pre className="console-output">
-          {log.length > 0 ? log.join("\n") : "// log output will stream here while training runs"}
-          {busy && <span className="cursor" />}
-          <div ref={logEndRef} />
-        </pre>
+        <LogLines
+          lines={log}
+          placeholder="// log output will stream here while training runs"
+          busy={busy}
+          bottomRef={logEndRef}
+        />
       </TerminalWindow>
     </div>
   );

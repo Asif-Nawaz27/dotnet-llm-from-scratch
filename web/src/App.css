@@ -397,11 +397,6 @@ input[type="range"]::-moz-range-track {
 
 /* ---------- console output ---------- */
 
-.error {
-  color: var(--red);
-  font-size: 13px;
-}
-
 .console-output {
   white-space: pre-wrap;
   word-break: break-word;
@@ -423,6 +418,44 @@ input[type="range"]::-moz-range-track {
   height: 460px;
   border: none;
   border-radius: 0;
+}
+
+.log-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.log-tag {
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.log-output {
+  color: var(--term-fg);
+}
+
+.log-info {
+  color: var(--text);
+}
+
+.log-info .log-tag {
+  color: var(--accent);
+}
+
+.log-warn {
+  color: var(--amber);
+}
+
+.log-warn .log-tag {
+  color: var(--amber);
+}
+
+.log-error {
+  color: var(--red);
+}
+
+.log-error .log-tag {
+  color: var(--red);
 }
 
 .cursor {
