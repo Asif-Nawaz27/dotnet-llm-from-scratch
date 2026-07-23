@@ -2,29 +2,33 @@ import { useState } from "react";
 import { generateText } from "./api";
 import SliderField from "./SliderField";
 import TerminalWindow from "./TerminalWindow";
+import LogLines from "./LogLines";
 
 export default function GeneratePanel() {
   const [prompt, setPrompt] = useState("The old mill");
   const [maxTokens, setMaxTokens] = useState(200);
   const [temperature, setTemperature] = useState(0.8);
   const [topK, setTopK] = useState(40);
-  const [result, setResult] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [log, setLog] = useState([]);
+  const [status, setStatus] = useState("idle"); // idle | running | done | error
+  const loading = status === "running";
 
-  const status = error ? "error" : loading ? "running" : result ? "done" : "idle";
+  function appendLine(text, level = "info") {
+    setLog((prev) => [...prev, { text, level }]);
+  }
 
   async function handleGenerate() {
-    setLoading(true);
-    setError("");
-    setResult("");
+    setLog([]);
+    setStatus("running");
+    appendLine(`Generating (max ${maxTokens} tokens, temperature ${temperature}, top-k ${topK})…`);
     try {
       const text = await generateText({ prompt, maxTokens, temperature, topK });
-      setResult(text);
+      appendLine(`Done — ${text.length} characters generated.`);
+      appendLine(text, "output");
+      setStatus("done");
     } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      appendLine(err.message, "error");
+      setStatus("error");
     }
   }
 
@@ -58,15 +62,10 @@ export default function GeneratePanel() {
           </button>
           <span className="hint">ctrl/cmd + enter</span>
         </div>
-
-        {error && <p className="error">✗ {error}</p>}
       </TerminalWindow>
 
       <TerminalWindow title="generate.log" flush>
-        <pre className="console-output">
-          {result || (loading ? "" : "// output will appear here")}
-          {loading && <span className="cursor" />}
-        </pre>
+        <LogLines lines={log} placeholder="// output will appear here" busy={loading} />
       </TerminalWindow>
     </div>
   );
