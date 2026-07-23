@@ -6,14 +6,14 @@ import LogLines from "./LogLines";
 
 // Shown as a placeholder only, not a default value - the field is required, so Start
 // stays disabled until the user actually browses for or types a real data file. Paths are
-// resolved by LLM.Api (running from src/LLM.Api), not by this app, so they're relative to
-// that folder - two levels up lands back at the repo root.
-const DATA_PATH_PLACEHOLDER = "../../data/sample.txt";
+// resolved by LLM.Api, not by this app, so they're relative to that project's folder - one
+// level up lands back at the repo root (matches TrainingService's CheckpointDir, "../checkpoints").
+const DATA_PATH_PLACEHOLDER = "../data/sample.txt";
 
 export default function TrainPanel() {
   const [dataPath, setDataPath] = useState("");
-  const [steps, setSteps] = useState(500);
-  const [evalInterval, setEvalInterval] = useState(20);
+  const [steps, setSteps] = useState(3000);
+  const [evalInterval, setEvalInterval] = useState(100);
   const [log, setLog] = useState([]);
   const [status, setStatus] = useState("idle"); // idle | running | stopping | done | error
   const [uploading, setUploading] = useState(false);
